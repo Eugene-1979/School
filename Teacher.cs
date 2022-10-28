@@ -24,7 +24,10 @@ namespace School
         public bool IsClassTeacher { get; private set; }
         public Lessons TeacherLesson { get; private set; }
 
-
+        public override string ToString()
+        {
+            return $"{ base.ToString()}   {TeacherLesson} ";
+        }
 
 
     }

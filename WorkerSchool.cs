@@ -15,7 +15,12 @@ namespace School
         {
             Salary = salary;
         }
-
+        public override string ToString()
+        {
+            return $"{base.ToString()}  Salary-{Salary}";
+        }
         public int Salary { get; set; }
+
+
     }
 }

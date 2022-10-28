@@ -9,7 +9,7 @@ namespace School
     internal class GrabeBook
     {
         HashSet<Lessons> Lessons;
-        HashSet<Student>
+      /*  HashSet<Student>*/
 
 
 

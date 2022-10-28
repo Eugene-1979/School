@@ -20,6 +20,11 @@ namespace School
             Sex = sex;
         }
 
+        public override string? ToString()
+        {
+            return $"{FirstNane,10}  {LastNane,10}  {AgeBorn,10}  {Sex,10}";
+        }
+
         public string FirstNane { get; init; }
         public string LastNane { get; init; }
         public int AgeBorn { get; init; }

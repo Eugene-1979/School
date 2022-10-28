@@ -30,6 +30,12 @@ namespace School
         /*   public bool SetClassTeacher (Clazz clazz, Teacher teacher)
            {clazz }*/
 
+        public override string ToString()
+        {
+            /*   return "";*/
+            return $"DIRECTOR Школы {School.Number,10}    { base.ToString()}";
+           
 
+        }
     }
 }

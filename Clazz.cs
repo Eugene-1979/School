@@ -8,26 +8,31 @@ namespace School
 {
     internal class Clazz
     {
-        static int count = 0;
-        int NumberClass { get; init; }
-        /* ограничил права доступа.Только директор может формировать классы*/
+        static private int COUNT = 1;
+        int NumberClass { get; init; } = COUNT++;
+      
         public School school { get; init; }
+        public Student? Headman { get; private set; }
+        public List<Student>? Students { get; private set; } = new List<Student>();
+
+        public Teacher? ClassroomTeacher { get; private set; }
 
 
 
-        public Clazz(int numberClass, School school, Student? headman, List<Student>? students, Teacher? classroomTeacher)
-        {
-            NumberClass = numberClass;
+
+
+        public Clazz( School school )        {
+           
             this.school = school;
-            Headman = headman;
-            Students = students;
-            ClassroomTeacher = classroomTeacher;
+         
+            /*По очереди создаются классніе руководители*/
+            ClassroomTeacher = school.Teachers[COUNT % school.Teachers.Count];
         }
 
-        public Student? Headman { get; private set; }
+        
 
 
-        public List  <Student> ? Students { get; private set; }
+        
 
 
 
@@ -35,7 +40,7 @@ namespace School
         
 
 
-        public bool addStudent(Person pers, Student student) {
+      /*  public bool addStudent(Person pers, Student student) {
 
 
 
@@ -46,7 +51,7 @@ namespace School
                 return true;
             }
             else return false;
-        }
+        }*/
 
 
 
@@ -65,14 +70,12 @@ namespace School
         }
 
 
-
-        /* ограничил права доступа.Только учитель может назначать старосту*/
+        /* ограничил права доступа.Только школа назначать старосту 
+         * ,если этьот класс принадлежит этой школе*/
        
-
-
-        public bool SetClassroomTeacher(Person pers,Student headman)
+        public bool SetHeadman(School sch,Student headman)
         {
-            if (pers is Teacher)
+            if (sch ==school)
             {
 
                 Headman = headman;
@@ -84,7 +87,7 @@ namespace School
         }
 
         /* ограничил права доступа.Только директор может назначать классного руководителя*/
-        public Teacher ? ClassroomTeacher { get; private set; }
+        
 
         public bool SetClassroomTeacher (Person pers,Teacher teacher) {
             if (pers is DirectorSchool)
@@ -100,7 +103,11 @@ namespace School
 
 
 
-
+        public override string ToString()
+        {
+            return $"Класс-{NumberClass} {Environment.NewLine}{Headman}---староста{Environment.NewLine}{ClassroomTeacher}клас учитель{Environment.NewLine}" +
+                $"{string.Join('\n', Students)}"; 
+        }
 
 
     }

@@ -8,17 +8,20 @@ namespace School
 {
     internal class School
     {
-        public int Number { get; init; }
-        public List<Teacher> Teachers { get; init; }
-        public List<Clazz> Clazz { get; init; }
+        private static int NumberScholl=1;
+
+        static public int MAXSTUDENTINCLASS = 30;
+        public int Number { get; init; } = NumberScholl++;
+         public List<Teacher> Teachers { get;init ; }=new List<Teacher>();
+        public List<Clazz> Clazz { get; init; }=new List<Clazz>();
         public DirectorSchool Director { get; set; }
 
        
 
         public School(List<Teacher> teachers, DirectorSchool director,int number)
         {
-            Clazz = new List<Clazz>();
-            Number = number;
+         
+             Number = number;
             Teachers = teachers;
             Director = director;
             director.SetSchool(this);
@@ -32,7 +35,7 @@ namespace School
             Number = number;
             Director = director;
             director.SetSchool(this);
-            Teachers = new List<Teacher>();
+           
             Number = number;
             director.SetClazz(Clazz);
             director.SetTeacher(Teachers);
@@ -42,7 +45,7 @@ namespace School
         {
             Clazz = new List<Clazz>();
             Number = number;
-            Teachers = new List<Teacher>();
+           
         }
 
         bool AddTeacher(Teacher teacher) {
@@ -50,11 +53,46 @@ namespace School
             return true;
         }
 
+
+        /*Распределяем студентов по классам , назначая классного руководителя и старосту*/
+
         public void addStudent(Student student) {
-       
+            if ((Clazz.Count==0)||
+                (Clazz?.
+                Last()?.
+                Students?.
+                Count 
+                > MAXSTUDENTINCLASS)) {
+                Clazz.Add(new Clazz(this));
+                Clazz.Last().SetHeadman(this,student );
+            }
+            
+            Clazz.Last().Students.Add(student);
         
         }
 
+        public override string ToString()
+        {
 
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Director);
+            foreach (var item in Clazz)
+            {
+                sb.Append(item);
+                sb.Append(Environment.NewLine);
+                sb.Append(Environment.NewLine);
+            }
+
+            return sb.ToString();
+
+
+/*            return $@"{Director}
+
+{Clazz[0]}
+";*/
+
+
+
+        }
     }
 }
